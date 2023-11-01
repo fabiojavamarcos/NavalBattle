@@ -7,13 +7,17 @@ public class NavalBattle {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("Enter the coordinates of your destroyer");
+		//System.out.println("Enter the coordinates of your destroyer");
 		int dx1, dx2, dy1, dy2 = 0;
-		int hits = 0;
-		int hitsD = 0;
-		Scanner sc = new Scanner(System.in);
+		int cx1, cx2, cx3, cy1, cy2, cy3 = 0;
 		
-		// input destroyer position
+		int hitsD = 0;
+		int hitsC = 0;
+		boolean isSunkD = false;
+		boolean isSunkC = false;
+		//Scanner sc = new Scanner(System.in);
+		
+		/* input destroyer position
 		System.out.println("Enter the coordinates of your destroyer x1");
 		dx1 = sc.nextInt();
 		System.out.println("Enter the coordinates of your destroyer y1");
@@ -22,7 +26,23 @@ public class NavalBattle {
 		dx2 = sc.nextInt();
 		System.out.println("Enter the coordinates of your destroyer y2");
 		dy2 = sc.nextInt();
-		
+
+		//input Cruiser position
+		System.out.println("Enter the coordinates of your cruiser x1");
+		cx1 = sc.nextInt();
+		System.out.println("Enter the coordinates of your cruiser y1");
+		cy1 = sc.nextInt();		
+		System.out.println("Enter the coordinates of your cruiser x2");
+		cx2 = sc.nextInt();
+		System.out.println("Enter the coordinates of your cruiser y2");
+		cy2 = sc.nextInt();
+		System.out.println("Enter the coordinates of your cruiser x3");
+		cx3 = sc.nextInt();
+		System.out.println("Enter the coordinates of your cruiser y3");
+		cy3 = sc.nextInt(); */
+
+		dx1 = 0; dy1 = 0; dx2 = 0; dy2 = 1;
+		cx1 = 2; cy1 = 0; cx2 = 2; cy2 = 1; cx3 = 2; cy3 = 2;
 		String[][] battlefield = new String [10] [10];
 		
 		// initializing the battlefield
@@ -36,32 +56,54 @@ public class NavalBattle {
 		battlefield [dx1][dy1] = "D";
 		battlefield [dx2][dy2] = "D";
 		
+		battlefield [cx1][cy1] = "C";
+		battlefield [cx2][cy2] = "C";
+		battlefield [cx3][cy3] = "C";
+		
 		int counter = 1;
-		while (counter < 4) {
+		while (counter < 100) {
 			System.out.println("Computer will fire !!!");
 			
 			// fire position
 			int fireX = (int) ((Math.random() * 10));
 			int fireY = (int) ((Math.random() * 10));
+			//int fireX = sc.nextInt();
+			//int fireY = sc.nextInt();
 			
 			// check hit/miss
 			if (battlefield [fireX][fireY].equals("D")) {
-				System.out.println("We got a hit !!!"+ fireX + "-" + fireY);
-				hits++;
-				hitsD++;
+				System.out.println("We got a hit D!!!"+ fireX + "-" + fireY);
+				
+				if (!isSunkD) {
+					hitsD++;
+					if (hitsD == 2) {
+						System.out.println("Oh No D is sunk !!!");
+						isSunkD = true;
+					}
+				}	
 			}
-			else {
+			else if (battlefield [fireX][fireY].equals("C")) {
+				System.out.println("We got a hit C!!!"+ fireX + "-" + fireY);
+				
+				if (!isSunkC) {
+					hitsC++;
+					if (hitsC == 3) {
+						System.out.println("Oh No C is sunk!!!");
+						isSunkC = true;
+					}
+				}	
+			} else {
 				System.out.println("You missed hahahahah !!!"+ fireX + "-" + fireY);
 			}
-			if (hitsD == 2) {
-				System.out.println("Oh No !!!");
-			}
+			
 			//updating the fire position
 			battlefield [fireX][fireY] = "X";
 			
-			System.out.println("number of hits !!!"+ hits);
+			
 			counter++;
 		}
+		int hits = hitsD + hitsC;
+		System.out.println("number of hits !!!"+ hits);
 		//System.out.println("--------------Top Bottom Left Right");
 		//printTopBottomLeftRight(battlefield);
 		//System.out.println("--------------Bottom Up Right Left");
