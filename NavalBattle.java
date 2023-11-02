@@ -69,7 +69,9 @@ public class NavalBattle {
 			int fireY = (int) ((Math.random() * 10));
 			//int fireX = sc.nextInt();
 			//int fireY = sc.nextInt();
-			
+			if (battlefield [fireX][fireY].equals("X")) {
+				System.out.println("Fired in the same position");
+			} 
 			// check hit/miss
 			if (battlefield [fireX][fireY].equals("D")) {
 				System.out.println("We got a hit D!!!"+ fireX + "-" + fireY);
